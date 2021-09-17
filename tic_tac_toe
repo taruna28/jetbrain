@@ -1,0 +1,87 @@
+# tic tac toe
+import sys
+from collections import deque
+
+patterns = deque(["11", "12", "13", "21", "22", "23", "31", "32", "33", "11",
+                  "21",
+                  "31", "12", "22", "32", "13", "23", "33", "11", "22", "33",
+                  "13",
+                  "22", "31"])
+
+t = {}
+l = ["1", "2", "3"]
+
+o = 0
+x = 0
+
+print("Enter cells: ", end="")
+# user_input = input()
+user_input = "_________"
+deq = deque(list(user_input))
+
+for i in l:
+    for j in l:
+        t.update({i + j: deq[0]})
+        deq.rotate(-1)
+
+
+def update_pattern():
+    print("---------")
+    for i in l:
+        print("| ", end="")
+        for j in l:
+            if t[i + j] == "_":
+                print(" ", end=" ")
+            else:
+                print(t[i + j], end=" ")
+        print("|")
+    print("---------")
+
+
+update_pattern()
+
+k = 0
+while True:
+    while True:
+        print("Enter the coordinates: ", end="")
+        q, w = input().split(" ")
+        if k % 2 == 0:
+            player = "X"
+        else:
+            player = "O"
+        if not q.isnumeric() or not w.isnumeric():
+            print("You should enter numbers!")
+        elif (q not in ["1", "2", "3"]) or (w not in ["1", "2", "3"]):
+            print("Coordinates should be from 1 to 3!")
+        elif t[q + w] != "_":
+            print("This cell is occupied! Choose another one!")
+        else:
+            t.update({q + w: player})
+            update_pattern()
+            break
+    k += 1
+    for i in range(8):
+        check = ""
+        for j in range(3):
+            check += t[patterns[0]]
+            patterns.rotate(-1)
+        if check.count("X") == 3:
+            print("X wins")
+            sys.exit()
+        elif check.count("O") == 3:
+            print("O wins")
+            sys.exit()
+
+
+    if x or o:
+        if o == 1 and x == 0 and "_" not in deq:
+            print("O wins")
+            break
+        elif o == 0 and x == 1 and "_" in deq:
+            print("X wins")
+            break
+        elif abs(deq.count("X") - deq.count("O")) > 1:
+            print("Impossible")
+    if "_" not in t.values():
+        print("Draw")
+        sys.exit()
