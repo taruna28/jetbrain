@@ -23,7 +23,7 @@ for i in sub_list:
 # board = {'11': 'X', '12': '0', '13': 'X', '21': 'O', '22': 'X', '23': 'O',
 #          '31': '_', '32': 'X', '33': 'O'}
 
-def update_pattern():
+def print_board():
     print("---------")
     for i in sub_list:
         print("| ", end="")
@@ -56,11 +56,10 @@ def get_input():
 
 
 def check_score():
-    for i in range(8):
-        check_game = ""
-        for j in range(3):
-            check_game += board[patterns[0]]
-            patterns.rotate(-1)
+    for _ in range(len(patterns)):
+        check_game = board[patterns[0]] + board[patterns[1]] + board[
+            patterns[2]]
+        patterns.rotate(-3)
         if check_game.count("X") == 3:
             return "X wins"
         elif check_game.count("O") == 3:
@@ -70,12 +69,12 @@ def check_score():
 
 
 while True:
-    update_pattern()
+    print_board()
     get_input()
     result = check_score()
     select_player += 1
 
     if result:
-        update_pattern()
+        print_board()
         print(result)
         break  # or sys.exit()
