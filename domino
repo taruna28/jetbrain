@@ -206,8 +206,6 @@ def main():
             played = play_player(player, computer, stock_pieces, domino_snake)
             if played:
                 player, computer, stock_pieces, domino_snake, status = played
-            else:
-                continue
         elif status == "computer":
             print(f"Status: Computer is about to make a move. Press Enter to continue...")
             played = play_computer(player, computer, stock_pieces, domino_snake)
