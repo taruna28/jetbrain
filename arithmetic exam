@@ -1,8 +1,9 @@
 # write your code here
 import random
 
-# from other students
 """
+from other students good examples
+
 operations_handler = {'+': lambda a, b: a + b, '-': lambda a, b: a - b, '*': lambda a, b: a * b}
 x, operation, y = input().split()
 print(operations_handler[operation](int(x), int(y)))
