@@ -139,6 +139,7 @@ class DuplicateFileHandler:
 
 
 def main():
+    # test = "c:/temp"
     # d = DuplicateFileHandler(test)
     d = DuplicateFileHandler()  # create class
     d.get_directory()  # user input
