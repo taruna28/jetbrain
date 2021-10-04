@@ -18,7 +18,7 @@ class WebBrowser:
         self.stack = []
         self.prefix = "https://"
         self.len_prefix = len(self.prefix)
-        self.tags = ["p", "h1", "h2", "h3", "h4", "h5", "h6", "a", "ul", "ol", "li"]
+        self.tags = ["p", "h1", "h2", "h3", "h4", "h5", "h6", "a", "ul", "ol", "li"]  # tags from another student.
 
     def connect_url(self, url):
         try:
