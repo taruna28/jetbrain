@@ -95,8 +95,7 @@ while True:
                 print(eval(f"msg_{msg_index}"))
                 answer = input()
                 if answer == "y":
-                    if msg_index < 13:
-                        msg_index += 1
+                    msg_index += 1
                     if msg_index == 13:
                         memory = result
                         break
