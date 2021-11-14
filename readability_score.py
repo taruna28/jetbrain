@@ -11,7 +11,6 @@ class Score:
         self.words = []
         self.difficult_words = []
         self.len_chars = 0
-        self.text_length = 0
         self.score = ""
         self.file_name = _path
         self.path_diff_words = _diff_words
