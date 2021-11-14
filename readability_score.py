@@ -21,6 +21,7 @@ class Score:
         self.longman = []
         self.age_group = {1: "6", 2: "7", 3: "9", 4: "10", 5: "11", 6: "12", 7: "13", 8: "14",
                           9: "15", 10: "16", 11: "17", 12: "18", 13: "24", 14: "24"}
+        self.methods = {"ari": self.ari, "fk": self.fk  , "smog": self.smog, "cl": self.cl, "dc": self.dc}
 
     def get_longman_3000(self):
         with open(self.path_diff_words, mode="r") as file:
@@ -55,31 +56,23 @@ class Score:
         self.syllables = 0
         self.polysyllables = 0
         for word in self.words:
+            vowels = len(re.findall(r"[aeiou]", word))
             if word[-1] == "e":
-                word = word[:-1]
-            vowels = len(re.findall(r"[aeiouy]+", word))
+                vowels -= 1
+            if bool(re.findall(r"[aeiou]*[aeiou][aeiou]", word)):
+                vowels -= 1
+            if bool(re.match(r"[0-9]+", word)):
+                vowels = 1
+            self.syllables += 1 if vowels == 0 else vowels
             if vowels > 2:
                 self.polysyllables += 1
-            if vowels == 0:
-                self.syllables += 1
-            else:
-                self.syllables += vowels
 
     def calculate_score(self):
         print("Enter the score you want to calculate (ARI, FK, SMOG, CL, DC, all):")
         entered = input().split()
         entered = ["ari", "fk", "smog", "cl", "dc"] if entered == ["all"] else entered
         for e in entered:
-            if e.lower() == "ari":
-                self.ari()
-            elif e.lower() == "fk":
-                self.fk()
-            elif e.lower() == "smog":
-                self.smog()
-            elif e.lower() == "cl":
-                self.cl()
-            elif e.lower() == "dc":
-                self.dc()
+            self.methods[e.lower()]()
 
     def ari(self):
         self.score = 4.71 * (self.len_chars / len(self.words)) + 0.5 * (len(self.words) / len(self.sentences)) - 21.43
